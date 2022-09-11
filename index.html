@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Day 1</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="songContainer">
+            <div data-key="1" class="song">
+                <p class="key">1</p>
+                <p class="detail">Official</p>
+            </div>
+            <div data-key="2" class="song">
+                <p class="key">2</p>
+                <p class="detail">A Cappella Cover</p>
+            </div>
+            <div data-key="3" class="song">
+                <p class="key">3</p>
+                <p class="detail">Female Version Cover</p>
+            </div>
+            <div data-key="4" class="song">
+                <p class="key">4</p>
+                <p class="detail">8-bit Cover (No Vocals)</p>
+            </div>
+            <div data-key="5" class="song">
+                <p class="key">5</p>
+                <p class="detail">Dubstep Remix</p>
+            </div>
+            <div data-key="6" class="song">
+                <p class="key">6</p>
+                <p class="detail">Rap Remix</p>
+            </div>
+            <div data-key="7" class="song">
+                <p class="key">7</p>
+                <p class="detail">Medieval Cover (No Vocals)</p>
+            </div>
+            <div data-key="8" class="song">
+                <p class="key">8</p>
+                <p class="detail">Old English Cover</p>
+            </div>
+            <div data-key="9" class="song">
+                <p class="key">9</p>
+                <p class="detail">Lofi Remix</p>
+            </div>
+        </div>
+        <div class="controller">
+            <div class="controls">
+                <div class="icon play">
+                    <span onclick="playBtn()" class="material-icons">
+                        play_arrow
+                    </span>
+                </div>
+                <div class="icon pause">
+                    <span onclick="pauseBtn()" class="material-icons">
+                        pause
+                    </span>
+                </div>
+                <div class="icon replay">
+                    <span onclick="replayBtn()" class="material-icons">
+                        replay
+                    </span>
+                </div>
+                <div class="icon stop">
+                    <span onclick="stopBtn()" class="material-icons">
+                        stop
+                    </span>
+                </div>
+                <div class="icon loop">
+                    <span onclick="loopBtn()" class="material-icons loopIcon">
+                        loop
+                    </span>
+                </div>
+            </div>
+            <div class="playerBar">
+                <div class="playTime"></div>
+                <div class="backgroundBar">
+                    <div class="playBar"></div>
+                </div>
+                <div class="endTime"></div>
+            </div>
+        </div>
+    </div>
+
+    <audio data-key="1" src="audio/Rick Roll.mp3"></audio>
+    <audio data-key="2" src="audio/rick roll/Never Gonna Give You Up - by Rick Astley - (a cappella cover).mp3"></audio>
+    <audio data-key="3" src="audio/rick roll/Never Gonna Give You Up (acoustic ver.) 【covered by Anna】.mp3"></audio>
+    <audio data-key="4" src="audio/rick roll/RICK ROLL REMIX (DJ Stutter Trap Rick Roll Remix) [8 Bit Cover Tribute to Rick Astley].mp3"></audio>
+    <audio data-key="5" src="audio/rick roll/Rick Astley - Never Gonna Give You Up (frnzvrgs 2021 Remix) [Dubstep].mp3"></audio>
+    <audio data-key="6" src="audio/rick roll/Rick Astley - Never Gonna Give You Up - RAP REMIX RUSTAGE.mp3"></audio>
+    <audio data-key="7" src="audio/rick roll/Never Gonna Give You Up (Medieval Cover).mp3"></audio>
+    <audio data-key="8" src="audio/rick roll/Rīċa Ēastlēah - Never gonna give you up Cover In Old English (BARDCORE).mp3"></audio>
+    <audio data-key="9" src="audio/rick roll/Never Gonna Give You Up (Lofi Remix).mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: ivory;
+}
+body {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("wallpaper.jpg") center/cover no-repeat;
+}
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.songContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.song {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    height: 15vh;
+    min-height: 5rem;
+    width: 15%;
+    min-width: 125px;
+    margin: .25rem;
+    cursor: pointer;
+}
+
+.detail {
+    text-align: center;
+    margin: 5px;
+}
+.controller {
+    display: none;
+    overflow: hidden;
+}
+.controllerOnStart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 15vh;
+    min-height: 75px;
+    opacity: 1;
+    animation: onStart 1s linear forwards 1;
+}
+
+@keyframes onStart {
+    from {
+        height: 0vh;
+        min-height: 25px;
+        opacity: 0;
+    }
+    to {
+        height: 15vh;
+        min-height: 75px;
+        opacity: 1;
+    }
+}
+
+.controllerOnEnd {
+    /* opacity: 0;
+    height: 25px; */
+    animation: onEnd 1s linear forwards 1;
+}
+
+@keyframes onEnd {
+    from {
+        height: 15vh;
+        min-height: 75px;
+        opacity: 1;
+    }
+    to {
+        height: 0vh;
+        min-height: 25px;
+        opacity: 0;
+    }
+}
+
+.controls {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50vw;
+    max-width: 400px;
+    min-width: 200px;
+}
+.icon {
+    /* scale: 1.5; */
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+}
+.material-icons {
+    scale: 1.33;
+}
+.backgroundBar {
+    position: relative;
+    width: 50vw;
+    min-width: 150px;
+    height: 5px;
+    background-color: gray;
+    border-radius: 25px;
+    overflow: hidden;
+}
+.playerBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.playTime, .endTime {
+    margin: 0 10px;
+}
+.playBar {
+    position: absolute;
+    width: 50vw;
+    min-width: 150px;
+    height: 5px;
+    background-color: white;
+    border-radius: 25px;
+    transform: translateX(-100%);
+}
+.play {
+    display: none;
+}
+.replay {
+    display: none;
+}
