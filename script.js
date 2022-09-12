@@ -283,6 +283,7 @@ function clickChild (e) {
             controller.classList.add("controllerOnStart")
             playBarAnimation()
             audio = audioOnClick
+            audio.currentTime = "0"
             audio.play()
             count++
             for(let i=0; i<song.length; i++)
