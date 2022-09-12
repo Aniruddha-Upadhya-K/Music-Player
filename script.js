@@ -1,4 +1,4 @@
-var lastPlayed, count = 0, audio, audioCopy, loopCondition = 0
+var lastPlayed, count = 0, audio, audioCopy, loopCondition = 0, clickCount = 0, audioOnClick
 
 const play = document.querySelector(".play")
 const pause = document.querySelector(".pause")
@@ -6,13 +6,16 @@ const stop = document.querySelector(".stop")
 const loop = document.querySelector(".loopIcon")
 const replay = document.querySelector(".replay")
 
+const song = document.querySelectorAll(".song")
+const key = document.querySelectorAll(".key")
+const detail = document.querySelectorAll(".detail")
+
 const controller = document.querySelector(".controller")
 const backgroundBar = document.querySelector(".backgroundBar")
 const playBar = document.querySelector(".playBar")
 const playTime = document.querySelector(".playTime")
 const endTime = document.querySelector(".endTime")
 
-var timeManager
 
 var animationId
 
@@ -31,8 +34,13 @@ function firstTime(e) {
         count = 0
         return;
     }
-
     audio = audioCopy
+    // console.log(audio)
+
+    for(let i=0; i<song.length; i++)
+    {
+        song[i].classList.add("songOnStart")
+    }
 
     audio.currentTime = "0"
     audio.play()
@@ -65,7 +73,6 @@ function laterOn(e) {
         else
             {
                 audio.pause()
-                clearTimeout(timeManager)
                 pause.style.display = "none"
                 replay.style.display = "none"
                 play.style.display = "inline"
@@ -73,7 +80,6 @@ function laterOn(e) {
     }
     else
     {
-        clearTimeout(timeManager)
         document.querySelector(`audio[data-key="${lastPlayed}"]`).pause()
         audio.currentTime = "0"
         audio.play()
@@ -94,7 +100,6 @@ function playBtn() {
 
 function pauseBtn() {
     audio.pause()
-    clearTimeout(timeManager)
     pause.style.display = "none"
     play.style.display = "inline"
 }
@@ -152,6 +157,8 @@ function playBarAnimation() {
         totalTime = audio.duration
         var playBarPos = (100 - (currentTime * 100 / totalTime)) + "%"
         playBar.style.transform = `translate(-${playBarPos})`
+
+        var audioDataset
         
         if (audio == audioBackup)
         {
@@ -166,6 +173,7 @@ function playBarAnimation() {
         {
             playTime.innerHTML = minCalculator(currentTime)
             timeCount = 0
+            // song[audioDataset].classList.remove("playingSong")
         }
 
         endTime.innerHTML = minCalculator(totalTime)
@@ -200,6 +208,10 @@ function playBarAnimation() {
                 switchToReplay() 
             }
         }
+
+        // audioDataset = audio.dataset.key - 1
+        // console.log(audioDataset)
+        // song[audioDataset].classList.add("playingSong")
     }
 }
 
@@ -212,4 +224,92 @@ function minCalculator(t) {
     timeSec = timeSec.padStart(2, "0")
     timeMin = timeMin.padStart(2, "0")
     return timeMin + " : " + timeSec
+}
+
+for(let i=0; i<song.length; i++)
+{
+    song[i].addEventListener("click", function (e) {clickDiv(e)})
+    key[i].addEventListener("click", function (e) {clickChild(e)})
+    detail[i].addEventListener("click",function (e) {clickChild(e)})
+}
+
+function clickDiv (e) {
+    let songDataset = e.path[0].dataset.key
+    if (songDataset)
+    {
+        audioOnClick = document.querySelector(`audio[data-key="${songDataset}"]`)
+
+        if(!audio)
+        {
+            controller.classList.add("controllerOnStart")
+            playBarAnimation()
+            audio = audioOnClick
+            audio.currentTime = "0"
+            audio.play()
+            count++
+            for(let i=0; i<song.length; i++)
+            {
+                song[i].classList.add("songOnStart")
+            }
+        }
+        else if(songDataset == lastPlayed)
+        {
+            if(audioOnClick.paused)
+            {
+                audioOnClick.play()
+            }
+            else
+            {
+                audioOnClick.pause()
+            }
+        }
+        else
+        {
+            audio.pause()
+            audio.currentTime = "0"
+            audio = audioOnClick
+            audio.currentTime = "0"
+            audio.play()
+        }
+        audio = audioOnClick
+        lastPlayed = songDataset
+    }
+}
+function clickChild (e) {
+    let songDataset = e.path[1].dataset.key
+    audioOnClick = document.querySelector(`audio[data-key="${songDataset}"]`)
+
+    if(!audio)
+        {
+            controller.classList.add("controllerOnStart")
+            playBarAnimation()
+            audio = audioOnClick
+            audio.play()
+            count++
+            for(let i=0; i<song.length; i++)
+            {
+                song[i].classList.add("songOnStart")
+            }
+        }
+        else if(songDataset == lastPlayed)
+        {
+            if(audioOnClick.paused)
+            {
+                audioOnClick.play()
+            }
+            else
+            {
+                audioOnClick.pause()
+            }
+        }
+        else
+        {
+            audio.pause()
+            audio.currentTime = "0"
+            audio = audioOnClick
+            audio.currentTime = "0"
+            audio.play()
+        }
+        audio = audioOnClick
+        lastPlayed = songDataset
 }
