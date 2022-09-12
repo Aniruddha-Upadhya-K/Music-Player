@@ -35,7 +35,6 @@ function firstTime(e) {
         return;
     }
     audio = audioCopy
-    // console.log(audio)
 
     for(let i=0; i<song.length; i++)
     {
@@ -234,7 +233,7 @@ for(let i=0; i<song.length; i++)
 }
 
 function clickDiv (e) {
-    let songDataset = e.path[0].dataset.key
+    let songDataset = e.composedPath()[0].dataset.key
     if (songDataset)
     {
         audioOnClick = document.querySelector(`audio[data-key="${songDataset}"]`)
@@ -276,7 +275,7 @@ function clickDiv (e) {
     }
 }
 function clickChild (e) {
-    let songDataset = e.path[1].dataset.key
+    let songDataset = e.composedPath()[1].dataset.key
     audioOnClick = document.querySelector(`audio[data-key="${songDataset}"]`)
 
     if(!audio)
