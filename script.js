@@ -1,4 +1,4 @@
-var lastPlayed, count = 0, audio, audioCopy, loopCondition = 0, clickCount = 0, audioOnClick
+var lastPlayed, count = 0, audio, audioCopy, loopCondition = 0, clickCount = 0, audioOnClick, audioChangeDetector
 
 const play = document.querySelector(".play")
 const pause = document.querySelector(".pause")
@@ -49,6 +49,7 @@ function firstTime(e) {
     replay.style.display = "none"
     pause.style.display = "inline"
     lastPlayed = e.key
+    audioChangeDetector = lastPlayed
     controller.classList.add("controllerOnStart")
 }
 
@@ -87,7 +88,7 @@ function laterOn(e) {
         replay.style.display = "none"
         play.style.display = "none"
     }
-    
+    audioChangeDetector = lastPlayed
     lastPlayed = e.key
 }
 
@@ -134,6 +135,8 @@ function stopBtn() {
     audio.pause()
 
     clearInterval(animationId)
+
+    song[audio.dataset.key - 1].classList.remove("playingSong")
     audio = null
 
     count = 0
@@ -148,6 +151,8 @@ function stopBtn() {
 
 function playBarAnimation() {
     var currentTime, totalTime, timeCount = 0, audioBackup = audio
+    
+    var audioDataset = audio.dataset.key - 1
 
     animationId = setInterval(animation, 10)
 
@@ -157,7 +162,6 @@ function playBarAnimation() {
         var playBarPos = (100 - (currentTime * 100 / totalTime)) + "%"
         playBar.style.transform = `translate(-${playBarPos})`
 
-        var audioDataset
         
         if (audio == audioBackup)
         {
@@ -208,9 +212,17 @@ function playBarAnimation() {
             }
         }
 
-        // audioDataset = audio.dataset.key - 1
-        // console.log(audioDataset)
-        // song[audioDataset].classList.add("playingSong")
+        
+
+        if(audioDataset != (audioChangeDetector - 1))
+        {
+            song[audioChangeDetector - 1].classList.remove("playingSong")
+            audioChangeDetector = audioDataset + 1
+        }
+
+        audioDataset = audio.dataset.key - 1
+        song[audioDataset].classList.add("playingSong")
+
     }
 }
 
@@ -241,7 +253,6 @@ function clickDiv (e) {
         if(!audio)
         {
             controller.classList.add("controllerOnStart")
-            playBarAnimation()
             audio = audioOnClick
             audio.currentTime = "0"
             audio.play()
@@ -250,6 +261,11 @@ function clickDiv (e) {
             {
                 song[i].classList.add("songOnStart")
             }
+            audioChangeDetector = songDataset
+
+            lastPlayed = songDataset
+
+            playBarAnimation()
         }
         else if(songDataset == lastPlayed)
         {
@@ -271,6 +287,7 @@ function clickDiv (e) {
             audio.play()
         }
         audio = audioOnClick
+        audioChangeDetector = lastPlayed
         lastPlayed = songDataset
     }
 }
@@ -281,7 +298,6 @@ function clickChild (e) {
     if(!audio)
         {
             controller.classList.add("controllerOnStart")
-            playBarAnimation()
             audio = audioOnClick
             audio.currentTime = "0"
             audio.play()
@@ -290,6 +306,11 @@ function clickChild (e) {
             {
                 song[i].classList.add("songOnStart")
             }
+            audioChangeDetector = songDataset
+
+            lastPlayed = songDataset
+
+            playBarAnimation()
         }
         else if(songDataset == lastPlayed)
         {
@@ -311,5 +332,6 @@ function clickChild (e) {
             audio.play()
         }
         audio = audioOnClick
+        audioChangeDetector = lastPlayed
         lastPlayed = songDataset
 }
