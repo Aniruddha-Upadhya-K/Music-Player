@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     color: rgb(253, 251, 146);
-    ;
+    user-select: none;
 }
 body {
     height: 100vh;
@@ -38,6 +38,7 @@ body {
     min-width: 125px;
     margin: .25rem;
     cursor: pointer;
+    transition: all 500ms linear;
 }
 .key {
     font-family: cursive;
@@ -51,7 +52,7 @@ body {
 }
 
 .playingSong {
-    background: rgba(123, 255, 0, 0.75);
+    background: rgba(149, 165, 76, 0.4);
     filter: drop-shadow(0, 0, 5, rgba(255, 251, 0, 0.75));
 }
 
